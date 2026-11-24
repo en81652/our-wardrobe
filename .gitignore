@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+data/
+uploads/
+cards/
+*.db
+*.db-*
+*.sqlite*
+config.local.json
+*.local.json
+.env
+.env.*
+!.env.example
+.mcp.json
+.DS_Store

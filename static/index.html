@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F7FAFC">
+<title>衣柜 · Wardrobe</title>
+<link rel="manifest" href="/static/manifest.webmanifest">
+<link rel="icon" href="/static/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/static/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/page-themes.css">
+</head>
+<body>
+<div class="wall" aria-hidden="true"></div>
+<main class="wrap">
+  <div class="top-controls"><button id="lock" class="back">锁上衣柜</button><select id="theme" aria-label="页面主题"><option value="harbor">珍珠浅色</option><option value="butterfly">林间蝶</option><option value="apple">青苹果</option></select></div>
+  <header class="heading"><h1><span lang="en">Wardrobe</span><span id="page-title" class="title-cn">我们的衣柜</span></h1><p class="muted small">收好每一件<br>留给下一次心动</p></header>
+  <section id="gate" class="gate" hidden aria-labelledby="gate-title">
+    <h2 id="gate-title">打开我们的衣柜</h2><p class="muted">输入访问密钥，打开两个人的衣柜。</p>
+    <form id="gate-form"><label>访问密钥<input id="secret" type="password" autocomplete="current-password" required></label><p class="error" id="gate-error" role="alert"></p><button class="primary" type="submit">进入衣柜</button></form>
+  </section>
+  <section id="collection" hidden>
+    <nav id="owners" class="owners" aria-label="选择谁的衣柜"></nav>
+    <fieldset class="draw-picker"><legend>选一格单抽，或多选几格</legend><div id="draw-kinds" class="draw-kinds"></div><div id="category-counts" class="counts" aria-label="所选格子数量" hidden></div><p class="hint">勾选后可选数量；多格混抽每格 1 件。空格跳过，不够时抽已有的。</p></fieldset>
+    <div class="draws" aria-label="随机抽取"><button class="primary" data-draw="set">抽一套</button><button id="draw-selected" data-draw="selected" disabled>先选要抽的格子</button><button id="draw-other" data-draw="other">给对方抽一套</button></div>
+    <p id="draw-hint" class="hint"></p>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <nav id="tabs" class="tabs" aria-label="按类别筛选"></nav>
+    <div class="detail-top"><p id="count" class="muted small"></p><button id="history-open" class="small">抽取记录</button></div>
+    <p id="loading" class="loading" role="status" hidden>正在打开衣柜…</p>
+    <p id="list-error" class="error" role="alert"></p><button id="retry" hidden>重新加载</button>
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty" hidden><h2 id="empty-title">衣柜还是空的</h2><p>把喜欢的那一件，放进来吧。</p><button id="empty-add">放进柜子</button></div>
+    <form id="pick-form" class="pick-bar" hidden aria-label="挑选物品">
+      <p id="pick-summary" class="pick-summary" aria-live="polite"></p>
+      <label for="pick-line">附一句话 · 随这次卡片送出（选填，最多 40 字）</label><input id="pick-line" autocomplete="off" placeholder="这次挑选，想对对方说的话" maxlength="40">
+      <p id="pick-error" class="error" role="alert"></p>
+      <div class="pick-actions"><button id="pick-clear" type="button">清空</button><label>抽几件<select id="pool-count" aria-label="候选池抽取数量"></select></label><button id="pool-submit" type="button">从这几件里抽</button><button id="pick-submit" class="primary" type="submit">挑这几件</button></div>
+    </form>
+    <button id="add" class="floating primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>放进柜子</button>
+  </section>
+  <section id="detail" class="detail" hidden>
+    <div class="detail-top"><button id="back-list">返回衣柜</button><button id="zoom-open" hidden>查看大图</button></div>
+    <img id="detail-photo" class="detail-photo" alt="" hidden><div id="detail-placeholder" class="placeholder" hidden></div>
+    <p id="detail-meta" class="detail-meta"></p><h2 id="detail-name" tabindex="-1"></h2><p id="detail-note" class="detail-note"></p><p id="detail-use" class="small muted"></p>
+    <div class="actions"><button id="edit">修改这件</button><button id="archive" class="danger">移出柜子</button></div>
+    <div id="remove-box" class="remove-box" hidden><p>移出后不再参与抽取，之前的使用记录会保留。</p><button id="remove-confirm" class="danger">确认移出</button><button id="remove-cancel">留在柜子里</button><p id="remove-error" class="error" role="alert"></p></div>
+    <div class="notes"><h3>卡片背面</h3><div id="notes"></div>
+      <form id="note-form" class="note-form"><label for="note-text">物品批注 · 写在这件的背面</label><textarea id="note-text" maxlength="500" rows="3" placeholder="想起它的时候，想说的话…" required></textarea><p class="error" id="note-error" role="alert"></p><button type="submit">写在背面</button></form>
+    </div>
+    <details class="history"><summary>最近使用记录</summary><div id="item-history"></div></details>
+  </section>
+</main>
+<dialog id="editor-dialog" aria-labelledby="editor-title">
+  <div class="dialog-head"><h2 id="editor-title">放进柜子</h2><button type="button" class="close" data-close="editor-dialog" aria-label="关闭添加或修改表单">关闭</button></div>
+  <form id="editor" class="editor">
+    <label id="photo-field">照片 <span class="small muted">· 可不选，JPG / PNG / WebP / GIF</span><input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><img id="preview" class="preview" alt="所选图片预览" hidden></label>
+    <label id="clear-image-label" class="inline-controls" hidden><input type="checkbox" id="clear-image">移除原照片</label>
+    <label>名字<input id="name" name="name" maxlength="60" required placeholder="给它起个名字" autocomplete="off"></label>
+    <label>谁用<select id="owner" name="owner"></select></label>
+    <label>类别<select id="kind" name="kind"></select></label>
+    <label><span id="note-label">备注</span> <span id="note-limit" class="small muted">· 最多 500 字</span><textarea id="note" name="note" maxlength="200" rows="3" placeholder="颜色、材质，或它的小故事"></textarea></label>
+    <details id="usage-fields"><summary>使用记录 · 手动校正</summary><div class="usage-fields"><label>用过几次<input id="use-count" type="number" min="0" step="1"></label><label>最近一次<input id="last-used" type="datetime-local"></label></div></details>
+    <p id="editor-error" class="error" role="alert"></p>
+    <div class="editor-footer"><button type="button" data-close="editor-dialog">取消</button><button type="submit" class="primary" id="save">放进去</button></div>
+  </form>
+</dialog>
+<dialog id="history-dialog" aria-labelledby="history-title"><div class="dialog-head"><h2 id="history-title">抽取记录</h2><button data-close="history-dialog" aria-label="关闭抽取记录">关闭</button></div><div id="history-list" class="history-list" aria-live="polite"></div></dialog>
+<dialog id="zoom-dialog" class="zoom" aria-label="物品大图"><div class="dialog-head"><span>物品大图</span><button data-close="zoom-dialog" aria-label="关闭物品大图">关闭</button></div><img id="zoom-image" alt=""></dialog>
+<dialog id="note-editor" aria-labelledby="note-edit-title"><div class="dialog-head"><h2 id="note-edit-title">修改这条批注</h2><button data-close="note-editor">关闭</button></div><form id="note-edit-form" class="editor"><label>批注正文<textarea id="note-edit-text" maxlength="500" rows="4" required></textarea></label><p id="note-edit-error" class="error" role="alert"></p><button class="primary" type="submit">保存批注</button></form></dialog>
+<dialog id="outfit-dialog" aria-labelledby="outfit-title"><div class="dialog-head"><h2 id="outfit-title">抽一套</h2><button data-close="outfit-dialog" aria-label="关闭套装数量">关闭</button></div><form id="outfit-form" class="editor"><div id="outfit-counts" class="counts"></div><p class="hint">其余套装格子各 1 件；空格跳过，不够时抽已有的。</p><button class="primary" type="submit">就这样抽</button></form></dialog>
+<script src="/static/app.js" defer></script>
+</body>
+</html>

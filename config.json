@@ -1,0 +1,98 @@
+{
+  "title": "我们的衣柜",
+  "roles": [
+    {
+      "id": "human",
+      "name": "我"
+    },
+    {
+      "id": "ai",
+      "name": "小机"
+    }
+  ],
+  "clients": {
+    "web": "human",
+    "mcp": "ai"
+  },
+  "categories": [
+    {
+      "id": "clothes",
+      "name": "衣服",
+      "owners": [
+        "human",
+        "ai"
+      ],
+      "action": "穿",
+      "in_outfit": true,
+      "max_count": 1,
+      "text_only": false
+    },
+    {
+      "id": "stockings",
+      "name": "袜子",
+      "owners": [
+        "human"
+      ],
+      "action": "穿",
+      "in_outfit": true,
+      "max_count": 1,
+      "text_only": false
+    },
+    {
+      "id": "accessory",
+      "name": "饰品",
+      "owners": [
+        "human",
+        "ai"
+      ],
+      "action": "戴",
+      "in_outfit": true,
+      "max_count": 1,
+      "text_only": false
+    },
+    {
+      "id": "toy",
+      "name": "玩具",
+      "owners": [
+        "human",
+        "ai"
+      ],
+      "action": "用",
+      "in_outfit": true,
+      "max_count": 3,
+      "text_only": false
+    },
+    {
+      "id": "medicine",
+      "name": "药品",
+      "owners": [
+        "human",
+        "ai"
+      ],
+      "action": "吃",
+      "in_outfit": [
+        "ai"
+      ],
+      "max_count": 1,
+      "text_only": false
+    },
+    {
+      "id": "order",
+      "name": "指令",
+      "owners": [
+        "human",
+        "ai"
+      ],
+      "action": "做",
+      "in_outfit": [
+        "ai"
+      ],
+      "max_count": 1,
+      "text_only": true
+    }
+  ],
+  "font_path": "",
+  "public_base_url": "http://127.0.0.1:8765",
+  "webhook_url": "",
+  "notify_webhook_url": ""
+}

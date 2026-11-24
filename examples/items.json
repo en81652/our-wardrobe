@@ -1,0 +1,7 @@
+[
+  {"name": "白衬衫", "owner": "human", "category": "clothes", "description": "干净简单的日常上衣"},
+  {"name": "直筒长裤", "owner": "human", "category": "clothes", "description": "适合散步的轻松搭配"},
+  {"name": "白袜子", "owner": "human", "category": "stockings", "description": "柔软的棉袜"},
+  {"name": "格纹围巾", "owner": "human", "category": "accessory", "description": "微凉天气里的一点暖意"},
+  {"name": "蓝色针织衫", "owner": "ai", "category": "clothes", "description": "另一格衣柜里的第一件"}
+]

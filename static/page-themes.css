@@ -1,0 +1,47 @@
+:root[data-theme="butterfly"]{
+  --bg:#EEF2E8;
+  --wall:none;
+  --text:#2F3D2C;
+  --text-soft:#56664F;
+  --text-faint:#5E7057;
+  --accent:#5C7A52;
+  --accent-deep:#3E5236;
+  --hairline:rgba(77,103,72,.22);
+  --card-bg:rgba(246,249,242,.58);
+  --card-line:rgba(77,103,72,.16);
+  --field-bg:rgba(250,252,246,.55);
+  --field-line:rgba(255,255,255,.70);
+  --sheet-bg:rgba(248,251,243,.92);
+  --sheet-line:rgba(255,255,255,.85);
+  --sheet-scrim:rgba(30,48,28,.44);
+  --shadow:0 18px 46px rgba(40,70,35,.14);
+  --soft-shadow:0 10px 26px rgba(40,70,35,.12);
+  --photo-shadow:0 10px 24px rgba(30,55,28,.20);
+  
+  --scrim:linear-gradient(180deg,rgba(248,251,243,.46),rgba(240,246,234,.22) 45%,rgba(240,246,234,.30));
+}
+
+:root[data-theme="apple"]{
+  --bg:#E4E8E0;
+  --wall:none;
+  --text:#2C3624;
+  --text-soft:#586249;
+  --text-faint:#6A7458;
+  --accent:#7E9A4C;
+  --accent-deep:#4F6630;
+  --hairline:rgba(96,112,72,.22);
+  --card-bg:rgba(248,250,244,.56);
+  --card-line:rgba(96,112,72,.16);
+  --field-bg:rgba(250,252,246,.55);
+  --field-line:rgba(255,255,255,.70);
+  --sheet-bg:rgba(248,250,244,.92);
+  --sheet-line:rgba(255,255,255,.85);
+  --sheet-scrim:rgba(36,46,26,.44);
+  --shadow:0 18px 46px rgba(50,64,30,.14);
+  --soft-shadow:0 10px 26px rgba(50,64,30,.12);
+  --photo-shadow:0 10px 24px rgba(40,54,24,.20);
+  --scrim:linear-gradient(180deg,rgba(246,248,242,.36),rgba(240,244,232,.16) 45%,rgba(240,244,232,.26));
+}
+
+:root[data-theme="butterfly"] .wall::after{-webkit-backdrop-filter:blur(2px) saturate(1.05);backdrop-filter:blur(2px) saturate(1.05)}
+:root[data-theme="apple"] .wall::after{-webkit-backdrop-filter:blur(1px);backdrop-filter:blur(1px)}
