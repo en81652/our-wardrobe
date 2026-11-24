@@ -2,6 +2,7 @@
 import base64
 import binascii
 import io
+from urllib.parse import urlsplit
 import re
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -145,8 +146,11 @@ def render_card(record: dict, media: Path, font_path: str) -> bytes:
     else:
         draw.text((66, 1182 + extra_height), author_name + "挑的" if mode == "pick" else "衣柜开了", font=card_font(32), fill=wine)
     draw.text((1010, 1263 + extra_height), "— " + author_name, font=card_font(26), anchor="ra", fill=wine)
-    if record.get("wardrobe_url"):
-        for offset, words in enumerate(text_lines(draw, "打开衣柜：" + record["wardrobe_url"], card_font(18), 700, 2)):
+    link = record.get("wardrobe_url") or ""
+    host = (urlsplit(link).hostname or "").lower()
+    if link and host not in {"127.0.0.1", "localhost", "::1", "0.0.0.0"}:
+        # A loopback address means nothing to whoever sees the card in chat.
+        for offset, words in enumerate(text_lines(draw, "打开衣柜：" + link, card_font(18), 700, 2)):
             draw.text((66, 1250 + extra_height + offset * 24), words, font=card_font(18), fill=muted)
     output = io.BytesIO()
     card.save(output, "PNG")
